@@ -5,7 +5,7 @@ class Variables:
     numbers = 'numbers.txt'
     config = 'config.txt'
     confDict = ('minimal', 'maximal', 'counterStrike', 'regularText')
-    error = 'Can\'t load the configuration file.\nPlease check values within config.txt'
+    error = 'Can\'t load configuration file.\nPlease check values within config.txt'
 
 class Config:
     def __init__(self, config, confDict, error):
@@ -13,13 +13,28 @@ class Config:
         self.confDict = confDict
         self.error = error
 
+
     def readConfig(self):
         confList = list()
         with open(self.config) as c:
             for line in c.readlines():
                 confList.append(line.strip())
         config = dict(zip(self.confDict, confList))
+
         return config
+
+    def validate(self, config):
+        try:
+            int(config['minimal'])
+        except:
+            return print(self.error)
+        try:
+            int(config['maximal'])
+        except:
+            return print(self.error)
+
+        if int(config['minimal']) > int(config['maximal']):
+            return print(self.error)
 
 class Read:
     def __init__(self, numbers):
@@ -79,6 +94,7 @@ readVar = ReadObj.readnumbers()
 
 ConfigObj = Config(Var.config, Var.confDict, Var.error)
 confVar = ConfigObj.readConfig()
+confCheck = ConfigObj.validate(confVar)
 
-DrawObj = Draw(readVar, Var.numbers, confVar)
-drawVar = DrawObj.drawNum()
+#DrawObj = Draw(readVar, Var.numbers, confVar)
+#drawVar = DrawObj.drawNum()
