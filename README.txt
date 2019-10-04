@@ -1,6 +1,6 @@
 ###################################
 ###### Author: Kuba Lisowski ######
-##### kubalisowski94@gmail.com #####
+##### kubalisowski94@gmail.com ####
 ###################################
 
 Aplication's role is to draw a random number from config file.
